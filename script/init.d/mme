@@ -1,0 +1,22 @@
+#! /bin/sh -e
+
+DAEMON=/root/Amarisoft/mme/ltemme
+MME_DIR=/root/Amarisoft/mme
+PIDFILE=/var/run/ltemme.pid
+
+case "$1" in
+  start)
+    	start-stop-daemon --start --quiet --background \
+        --pidfile $PIDFILE \
+        --exec $DAEMON /root/Amarisoft/mme/config/mme-ims-kgs.cfg
+    ;;
+  stop)
+	start-stop-daemon --stop --quiet --exec $DAEMON
+    ;;
+  *)
+    echo "Usage: /etc/init.d/ltemme {start|stop}"
+    exit 1
+    ;;
+esac
+
+exit 0

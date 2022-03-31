@@ -1,0 +1,23 @@
+#! /bin/sh -e
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON=/root/Amarisoft/mme/lteims
+MME_DIR=/root/Amarisoft/mme
+PIDFILE=/var/run/lteims.pid
+
+case "$1" in
+  start)
+    	start-stop-daemon --start --quiet --background \
+        --pidfile $PIDFILE \
+        --exec $DAEMON /root/Amarisoft/mme/config/ims.cfg
+    ;;
+  stop)
+	start-stop-daemon --stop --quiet --exec $DAEMON
+    ;;
+  *)
+    echo "Usage: /etc/init.d/lteims {start|stop|restart|force-reload}"
+    exit 1
+    ;;
+esac
+
+exit 0

@@ -1,0 +1,26 @@
+#! /bin/sh -e
+
+PATH=/bin:/usr/bin:/sbin:/usr/sbin
+DAEMON=/root/Amarisoft/enb/lteenb
+MME_DIR=/root/Amarisoft/enb
+PIDFILE=/var/run/lteenb.pid
+
+case "$1" in
+  start)
+    	start-stop-daemon --start --quiet --background \
+        --pidfile $PIDFILE --make-pidfile \
+        --exec $DAEMON /root/Amarisoft/enb/config/enb.cfg
+    ;;
+  stop)
+    	pid_no=`cat /var/run/lteenb.pid`
+	echo $pid_no
+	kill -9 $pid_no
+	
+    ;;
+  *)
+    echo "Usage: /etc/init.d/lteenb {start|stop|restart|force-reload}"
+    exit 1
+    ;;
+esac
+
+exit 0
